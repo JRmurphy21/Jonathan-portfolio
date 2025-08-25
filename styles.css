@@ -1,0 +1,23 @@
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+:root{--bg:#0e0f12;--muted:#1a1c22;--card:#13151a;--text:#e6e8ee;--sub:#9aa3b2;--accent:#76a9ff}
+body{margin:0;background:linear-gradient(180deg,var(--bg),#0b0c0f);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.container{max-width:1024px;margin:0 auto;padding:24px}
+.site-header{position:sticky;top:0;background:rgba(11,12,15,.7);backdrop-filter:blur(10px);border-bottom:1px solid #1e2230}
+.site-header h1{margin:0;font-weight:800;letter-spacing:.3px}
+.site-header p{margin:6px 0 12px;color:var(--sub)}
+nav a{color:var(--text);text-decoration:none;margin-right:16px;font-weight:600}
+nav a.resume{padding:6px 10px;border:1px solid #273047;border-radius:10px}
+.hero{background:linear-gradient(135deg,#12151d,#0f1015);border:1px solid #1f2331;border-radius:18px;padding:28px;margin-top:18px}
+.hero h2{margin-top:0;font-size:28px}
+.projects h3,.about h3,.contact h3{margin-top:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:16px}
+.card{background:var(--card);border:1px solid #1f2331;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.card .thumb{background:#0b0d12;height:140px;display:flex;align-items:center;justify-content:center;color:#5d6b85;font-size:13px;border-bottom:1px solid #1d2130}
+.card .inner{padding:16px}
+.card h4{margin:0 0 6px;font-size:18px}
+.card p{margin:4px 0;color:var(--sub)}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.badge{background:#0f131c;border:1px solid #243049;color:#a8c7ff;padding:2px 8px;border-radius:999px;font-size:12px}
+.card a{margin-top:auto;color:var(--accent);text-decoration:none;font-weight:600}
+.site-footer{border-top:1px solid #1e2230;margin-top:24px;color:#8993a6}
+@media (max-width:480px){.container{padding:16px}}
