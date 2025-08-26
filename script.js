@@ -57,7 +57,7 @@ projects.forEach(p => {
   card.className = 'card';
   const thumb = document.createElement('div');
   thumb.className = 'thumb';
-  thumb.textContent = "Add screenshot.png here";
+  thumb.textContent = "<div class="thumb"><img src="Desktop/Dispatch_App.png" alt="Switchboard screenshot" style="width:100%;height:100%;object-fit:cover"></div>";
   const inner = document.createElement('div');
   inner.className = 'inner';
   const h4 = document.createElement('h4'); h4.textContent = p.name;
