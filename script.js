@@ -20,7 +20,7 @@ const projects = [
     impact: "Replaces enterprise dispatch tooling",
     stack: ["React","React Native","FastAPI","FCM/Telnyx"],
     status: "PWA live internally — demo on request",
-    thumb: "Dispatch_App.png",
+    thumb: "dispatch_app.png",
     demo: null,
     repo: null
   },
