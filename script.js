@@ -1,3 +1,7 @@
+/** ---------- Config ---------- */
+const CONTACT_EMAIL = "murphy2136@gmail.com"; // used for "Request demo" mailto
+const PLACEHOLDER_IMG = "placeholder.png";    // fallback thumbnail
+
 /** ---------- Data ---------- */
 const projects = [
   {
@@ -6,9 +10,9 @@ const projects = [
     impact: "Replaces $6k–$12k/yr SaaS",
     stack: ["Python","FastAPI","PostgreSQL"],
     status: "Private demo — screenshots only",
-    thumb: "schedule-generator.png",          // optional
-    demo: null,                               // or "https://…" if public
-    repo: null                                // or "https://…" if public
+    thumb: "schedule-generator.png",
+    demo: null,
+    repo: null
   },
   {
     name: "Switchboard (Dispatch App)",
@@ -16,7 +20,7 @@ const projects = [
     impact: "Replaces enterprise dispatch tooling",
     stack: ["React","React Native","FastAPI","FCM/Telnyx"],
     status: "PWA live internally — demo on request",
-    thumb: "dispatch_app.png",
+    thumb: "Dispatch_App.png",
     demo: null,
     repo: null
   },
@@ -67,12 +71,12 @@ const $ = (sel, root=document) => root.querySelector(sel);
 
 function el(tag, props = {}, ...children) {
   const node = document.createElement(tag);
-  Object.entries(props).forEach(([k, v]) => {
-    if (v == null) return;
+  for (const [k, v] of Object.entries(props)) {
+    if (v == null) continue;
     if (k === "class") node.className = v;
     else if (k in node) node[k] = v;
     else node.setAttribute(k, v);
-  });
+  }
   for (const c of children) {
     if (c == null) continue;
     node.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
@@ -84,64 +88,88 @@ function chip(label) {
   return el("span", { class: "badge", role: "listitem" }, label);
 }
 
+function mailtoFor(p) {
+  const subject = encodeURIComponent(`Portfolio demo request — ${p.name}`);
+  const body = encodeURIComponent(`Hi Jonathan,\n\nCould I see a demo of "${p.name}"?\n\nThanks!`);
+  return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+}
+
 function ctaGroup(p) {
   const group = el("div", { class: "cta" });
-  const hasDemo = !!p.demo;
-  const hasRepo = !!p.repo;
-
-  if (hasDemo) {
+  if (p.demo) {
     group.appendChild(el("a", { href: p.demo, target: "_blank", rel: "noopener", class: "btn" }, "Live demo"));
   } else {
-    group.appendChild(
-      el("button", { type: "button", class: "btn ghost", "aria-disabled": "true", title: "Private – request access" }, "Request demo")
-    );
+    group.appendChild(el("a", { href: mailtoFor(p), class: "btn ghost" }, "Request demo"));
   }
-
-  if (hasRepo) {
+  if (p.repo) {
     group.appendChild(el("a", { href: p.repo, target: "_blank", rel: "noopener", class: "btn secondary" }, "View code"));
   }
-
   return group;
 }
 
+function normalizeThumb(src) {
+  if (!src) return PLACEHOLDER_IMG;
+  // If it looks like a relative filename, keep it; otherwise allow full/absolute paths.
+  return /^(https?:)?\//.test(src) ? src : src;
+}
+
+/** ---------- Sort: Live → In use → Ready → Private/other ---------- */
+const STATUS_RANK = [
+  /^live$/i,
+  /^in use/i,
+  /^ready/i,
+  /^pwa live/i,
+  /^private/i
+];
+function statusScore(s="") {
+  const i = STATUS_RANK.findIndex(rx => rx.test(s));
+  return i === -1 ? STATUS_RANK.length : i;
+}
+
 /** ---------- Render ---------- */
-const grid = $("#project-grid");
-const frag = document.createDocumentFragment();
+(function render() {
+  const grid = $("#project-grid");
+  if (!grid) return;
 
-projects.forEach((p) => {
-  const card = el("article", { class: "card", role: "region", "aria-label": p.name });
+  const frag = document.createDocumentFragment();
 
-  // Thumbnail (safe element creation; no innerHTML)
-  const thumb = el("div", { class: "thumb" });
-  const img = el("img", {
-    src: p.thumb || "placeholder.png",
-    alt: `${p.name} screenshot`,
-    loading: "lazy",
-    decoding: "async"
-  });
-  thumb.appendChild(img);
+  projects
+    .slice()
+    .sort((a, b) => statusScore(a.status) - statusScore(b.status) || a.name.localeCompare(b.name))
+    .forEach((p) => {
+      const card = el("article", { class: "card", role: "region", "aria-label": p.name });
 
-  // Body
-  const header = el("header", { class: "card-head" }, el("h3", {}, p.name));
-  const meta = el("dl", { class: "meta" },
-    el("dt", {}, "What it does"),
-    el("dd", {}, p.blurb),
-    el("dt", {}, "Impact"),
-    el("dd", {}, p.impact),
-    el("dt", {}, "Status"),
-    el("dd", {}, p.status)
-  );
+      // Thumbnail (safe; lazy; fallback)
+      const thumb = el("div", { class: "thumb" });
+      const img = el("img", {
+        src: normalizeThumb(p.thumb),
+        alt: `${p.name} screenshot`,
+        loading: "lazy",
+        decoding: "async"
+      });
+      img.addEventListener("error", () => { img.src = PLACEHOLDER_IMG; });
+      thumb.appendChild(img);
 
-  const tech = el("div", { class: "badges", role: "list", "aria-label": "Tech stack" }, ...p.stack.map(chip));
+      // Body
+      const header = el("header", { class: "card-head" }, el("h3", {}, p.name));
+      const meta = el("dl", { class: "meta" },
+        el("dt", {}, "What it does"),
+        el("dd", {}, p.blurb),
+        el("dt", {}, "Impact"),
+        el("dd", {}, p.impact),
+        el("dt", {}, "Status"),
+        el("dd", {}, p.status)
+      );
+      const tech = el("div", { class: "badges", role: "list", "aria-label": "Tech stack" }, ...p.stack.map(chip));
 
-  const body = el("div", { class: "inner" }, header, meta, tech, ctaGroup(p));
-  card.append(thumb, body);
-  frag.appendChild(card);
-});
+      const body = el("div", { class: "inner" }, header, meta, tech, ctaGroup(p));
+      card.append(thumb, body);
+      frag.appendChild(card);
+    });
 
-grid.textContent = ""; // clear if re-rendering
-grid.appendChild(frag);
+  grid.textContent = "";
+  grid.appendChild(frag);
 
-// Footer year
-const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
