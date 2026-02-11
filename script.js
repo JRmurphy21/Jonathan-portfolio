@@ -17,7 +17,7 @@ const projects = [
   {
     name: "MediCheck",
     blurb: "Drug & equipment compliance with expiration tracking and PDF exports.",
-    impact: "Avoids SafetyCulture licenses ($12k+/yr)",
+    impact: "Streamlined vehicle inspections and compliance checks.",
     stack: ["React","FastAPI","PostgreSQL"],
     status: "Ready; pending MDM rollout",
     thumb: "medicheck.png",
@@ -27,7 +27,7 @@ const projects = [
   {
     name: "Availability Calendar",
     blurb: "Collect monthly availability with admin dashboard & export.",
-    impact: "Cuts scheduling time dramatically",
+    impact: "Cut scheduling time dramatically.",
     stack: ["React","FastAPI","PostgreSQL"],
     status: "Live",
     thumb: "availability.png",
