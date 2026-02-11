@@ -5,19 +5,9 @@ const PLACEHOLDER_IMG = "placeholder.png";    // fallback thumbnail
 /** ---------- Data ---------- */
 const projects = [
   {
-    name: "Schedule Generator",
-    blurb: "Constraint-based EMS scheduling (roles, rest windows, ≤3 consecutive days).",
-    impact: "Replaces $6k–$12k/yr SaaS",
-    stack: ["Python","FastAPI","PostgreSQL"],
-    status: "Private demo — screenshots only",
-    thumb: "schedule-generator.png",
-    demo: null,
-    repo: null
-  },
-  {
     name: "Switchboard (Dispatch App)",
     blurb: "Dispatcher → crew comms with push/SMS and tap-to-route links.",
-    impact: "Replaces enterprise dispatch tooling",
+    impact: "Reduces navigation errors and improves routing.",
     stack: ["React","React Native","FastAPI","FCM/Telnyx"],
     status: "PWA live internally — demo on request",
     thumb: "dispatch_app.png",
@@ -35,16 +25,6 @@ const projects = [
     repo: null
   },
   {
-    name: "Inventory Tracker",
-    blurb: "Barcode-driven supply adds/removals with expiration verification.",
-    impact: "Fewer stockouts; real-time visibility",
-    stack: ["React","FastAPI","PostgreSQL"],
-    status: "In use internally",
-    thumb: "inventory.png",
-    demo: null,
-    repo: null
-  },
-  {
     name: "Availability Calendar",
     blurb: "Collect monthly availability with admin dashboard & export.",
     impact: "Cuts scheduling time dramatically",
@@ -54,16 +34,6 @@ const projects = [
     demo: null,
     repo: null
   },
-  {
-    name: "Supervisor Inspections",
-    blurb: "As-needed equipment/med supply inspections; pass/fail + notes.",
-    impact: "Improves accountability & audit trails",
-    stack: ["React","FastAPI","PostgreSQL"],
-    status: "Live",
-    thumb: "inspections.png",
-    demo: null,
-    repo: null
-  }
 ];
 
 /** ---------- Helpers ---------- */
