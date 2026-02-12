@@ -10,7 +10,7 @@ const projects = [
     impact: "Reduces navigation errors and improves routing.",
     stack: ["React","React Native","FastAPI","FCM/Telnyx"],
     status: "PWA live internally — demo on request",
-    image: "switchboard.jpeg",
+    thumb: "switchboard.jpeg",
     demo: null,
     repo: null
   },
@@ -20,7 +20,7 @@ const projects = [
     impact: "Streamlined vehicle inspections and compliance checks.",
     stack: ["React","FastAPI","PostgreSQL"],
     status: "Ready; pending MDM rollout",
-    image: "medicheck.png",
+    thumb: "medicheck.png",
     demo: null,
     repo: null
   },
@@ -30,7 +30,7 @@ const projects = [
     impact: "Cut scheduling time dramatically.",
     stack: ["React","FastAPI","PostgreSQL"],
     status: "Live",
-    image: "availability.png",
+    thumb: "availability.png",
     demo: null,
     repo: null
   },
