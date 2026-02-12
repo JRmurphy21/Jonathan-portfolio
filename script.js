@@ -30,7 +30,7 @@ const projects = [
     impact: "Cut scheduling time dramatically.",
     stack: ["React","FastAPI","PostgreSQL"],
     status: "Live",
-    thumb: "availability.png",
+    thumb: "Availability.png",
     demo: null,
     repo: null
   },
