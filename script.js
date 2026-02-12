@@ -1,5 +1,5 @@
 /** ---------- Config ---------- */
-const CONTACT_EMAIL = "murphy2136@gmail.com"; // used for "Request demo" mailto
+const CONTACT_EMAIL = "murphyj2136@gmail.com"; // used for "Request demo" mailto
 const PLACEHOLDER_IMG = "placeholder.png";    // fallback thumbnail
 
 /** ---------- Data ---------- */
